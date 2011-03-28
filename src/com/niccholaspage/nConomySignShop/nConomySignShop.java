@@ -6,9 +6,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.event.Event;
 
 import com.niccholaspage.nConomy.nConomy;
+import com.nijiko.permissions.PermissionHandler;
+import com.nijikokun.bukkit.Permissions.Permissions;
 
 public class nConomySignShop extends JavaPlugin {
 	public nConomy econHandler;
+	public PermissionHandler Permissions;
 	//Links the BasicBlockListener
     private final blockListener blockListener = new blockListener(this);
     @Override
@@ -21,10 +24,11 @@ public class nConomySignShop extends JavaPlugin {
 	public void onEnable() {
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
-		//Create PlayerCommand listener
 	    pm.registerEvent(Event.Type.BLOCK_RIGHTCLICKED, blockListener, Event.Priority.Normal, this);
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
+        //Hook into Permissions
+        setupPermissions();
         //Hook into nConomy
         setupnConomy();
         //Print that the plugin has been enabled!
@@ -41,5 +45,17 @@ public class nConomySignShop extends JavaPlugin {
             	System.out.println("nConomy not detected, disabling nConomySignShop.");
             	getPluginLoader().disablePlugin(this);
             }
+    }
+    private void setupPermissions() {
+        Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
+
+        if (this.Permissions == null) {
+            if (test != null) {
+                this.Permissions = ((Permissions)test).getHandler();
+            } else {
+            	System.out.println("Permissions not detected, disabling nConomySignShop.");
+            	getPluginLoader().disablePlugin(this);
+            }
+        }
     }
 }
