@@ -1,5 +1,6 @@
 package com.niccholaspage.nConomySignShop;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.event.block.BlockListener;
@@ -30,6 +31,7 @@ public class blockListener extends BlockListener {
 			event.getPlayer().getInventory().addItem(item);
 			event.getPlayer().updateInventory();
 			plugin.econHandler.removeMoney(event.getPlayer(), pay);
+			event.getPlayer().sendMessage(ChatColor.BLUE + "You just bought " + amount + " " + Material.getMaterial(ID).name().toLowerCase().replace("_", " ") + ".");
 		}
 	}
 }
