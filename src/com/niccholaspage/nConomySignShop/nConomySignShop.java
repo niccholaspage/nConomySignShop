@@ -3,6 +3,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 import com.niccholaspage.nConomy.nConomy;
@@ -38,6 +39,28 @@ public class nConomySignShop extends JavaPlugin {
     public boolean isInt(String string){
     	return econHandler.isInt(string);
     }
+    public boolean has(Player player, String node){
+    	return has(player, node, true);
+    }
+    public boolean hasNotOP(Player player, String node){
+    	return has(player, node, false);
+    }
+    public boolean has(Player player, String node, boolean checkIfNotOP){
+    	if (Permissions == null){
+    		if (checkIfNotOP == true){
+    		if (player.isOp()){
+    			return true;
+    		}
+    		}else {
+    			return true;
+    		}
+    	}else {
+    		if (Permissions.has(player, node)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
     private void setupnConomy(){
         Plugin test = this.getServer().getPluginManager().getPlugin("nConomy");
             if (test != null) {
@@ -54,8 +77,7 @@ public class nConomySignShop extends JavaPlugin {
             if (test != null) {
                 this.Permissions = ((Permissions)test).getHandler();
             } else {
-            	System.out.println("Permissions not detected, disabling nConomySignShop.");
-            	getPluginLoader().disablePlugin(this);
+            	System.out.println("Permissions not detected, Sign shops can only be created by OPs.");
             }
         }
     }

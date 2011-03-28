@@ -16,7 +16,7 @@ public class blockListener extends BlockListener {
 	}
 	@SuppressWarnings("deprecation")
 	public void onSignChange(SignChangeEvent event){
-		if ((event.getLine(0).equalsIgnoreCase("[nConomy]")) && (!(plugin.Permissions.has(event.getPlayer(), "nConomySignShop.create")))){
+		if ((event.getLine(0).equalsIgnoreCase("[nConomy]")) && (!(plugin.has(event.getPlayer(), "nConomySignShop.create")))){
 			event.getPlayer().sendMessage(ChatColor.RED + "You do not have permission to create nConomySignShop signs!");
 			event.getBlock().setTypeId(0);
 			//Give back the sign because we're nice (Maybe)
@@ -31,6 +31,7 @@ public class blockListener extends BlockListener {
 			Player player = event.getPlayer();
 			if (!(sign.getLine(0).equalsIgnoreCase("[nConomy]"))) return;
 			if ((!(plugin.isInt(sign.getLine(2))) || (!(plugin.isInt(sign.getLine(3)))))) return;
+			if (!(plugin.hasNotOP(player, "nConomySignShop.use"))) return;
 			Material type;
 			if (plugin.isInt(sign.getLine(1))){
 				type = Material.getMaterial(Integer.parseInt(sign.getLine(1)));
