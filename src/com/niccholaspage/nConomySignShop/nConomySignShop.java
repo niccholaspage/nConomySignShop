@@ -25,6 +25,7 @@ public class nConomySignShop extends JavaPlugin {
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
 	    pm.registerEvent(Event.Type.BLOCK_RIGHTCLICKED, blockListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.SIGN_CHANGE, blockListener, Event.Priority.Normal, this);
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
         //Hook into Permissions
