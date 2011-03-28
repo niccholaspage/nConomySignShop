@@ -32,7 +32,7 @@ public class blockListener extends BlockListener {
 			item.setAmount(amount);
 			player.getInventory().addItem(item);
 			player.updateInventory();
-			plugin.econHandler.removeMoney(event.getPlayer(), pay);
+			plugin.econHandler.removeMoney(player, pay);
 			player.sendMessage(ChatColor.BLUE + "You just bought " + amount + " " + Material.getMaterial(ID).name().toLowerCase().replace("_", " ") + " for " + pay + " " + plugin.econHandler.currencyName + ".");
 		}
 	}
