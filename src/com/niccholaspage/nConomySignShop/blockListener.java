@@ -38,7 +38,6 @@ public class blockListener extends BlockListener {
 			}else {
 				type = Material.getMaterial(sign.getLine(1).toUpperCase());
 			}
-			//Integer ID = Integer.parseInt(sign.getLine(1));
 			Integer amount = Integer.parseInt(sign.getLine(2));
 			Integer pay = Integer.parseInt(sign.getLine(3));
 			if (plugin.econHandler.canAddorDelete(pay) == false) return;
