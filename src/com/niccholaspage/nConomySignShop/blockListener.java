@@ -44,14 +44,18 @@ public class blockListener extends BlockListener {
 			if (plugin.econHandler.canAddorDelete(pay) == false) return;
 			if (type == null) return;
 			if (amount == 0) return;
-			if (plugin.econHandler.getMoney(player) < pay) return;
+			String typeName = type.name().toLowerCase().replace("_", " ");
+			if (plugin.econHandler.getMoney(player) < pay){
+				player.sendMessage(ChatColor.RED + "You don't have enough " + plugin.econHandler.currencyName + " to buy the " + typeName + " from this sign.");
+				return;
+			}
 			ItemStack item = new ItemStack(0);
 			item.setType(type);
 			item.setAmount(amount);
 			player.getInventory().addItem(item);
 			player.updateInventory();
 			plugin.econHandler.removeMoney(player, pay);
-			player.sendMessage(ChatColor.BLUE + "You just bought " + amount + " " + type.name().toLowerCase().replace("_", " ") + " for " + pay + " " + plugin.econHandler.currencyName + ".");
+			player.sendMessage(ChatColor.BLUE + "You just bought " + amount + " " + typeName + " for " + pay + " " + plugin.econHandler.currencyName + ".");
 		}
 	}
 }
