@@ -15,6 +15,7 @@ public class nConomySignShop extends JavaPlugin {
 	public PermissionHandler Permissions;
 	//Links the BasicBlockListener
     private final blockListener blockListener = new blockListener(this);
+    private final playerListener playerListener = new playerListener(this);
     @Override
 	public void onDisable() {
 		//Print "Basic Disabled" on the log.
@@ -25,7 +26,7 @@ public class nConomySignShop extends JavaPlugin {
 	public void onEnable() {
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
-	    pm.registerEvent(Event.Type.BLOCK_RIGHTCLICKED, blockListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.SIGN_CHANGE, blockListener, Event.Priority.Normal, this);
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
