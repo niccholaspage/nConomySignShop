@@ -6,12 +6,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
+import com.niccholaspage.nConomy.Bank;
 import com.niccholaspage.nConomy.nConomy;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
 public class nConomySignShop extends JavaPlugin {
-	public nConomy econHandler;
+	public Bank econHandler;
 	public PermissionHandler Permissions;
 	//Links the BasicBlockListener
     private final blockListener blockListener = new blockListener(this);
@@ -37,8 +38,13 @@ public class nConomySignShop extends JavaPlugin {
         //Print that the plugin has been enabled!
         System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 	}
-    public boolean isInt(String string){
-    	return econHandler.isInt(string);
+    public boolean isInt(String i){
+    	try {
+    		Integer.parseInt(i);
+    		return true;
+    	} catch(NumberFormatException nfe){
+    		return false;
+    	}
     }
     public boolean has(Player player, String node){
     	return has(player, node, true);
@@ -65,7 +71,7 @@ public class nConomySignShop extends JavaPlugin {
     private void setupnConomy(){
         Plugin test = this.getServer().getPluginManager().getPlugin("nConomy");
             if (test != null) {
-                this.econHandler = ((nConomy)test);
+                this.econHandler = nConomy.getBank();
             } else {
             	System.out.println("nConomy not detected, disabling nConomySignShop.");
             	getPluginLoader().disablePlugin(this);
