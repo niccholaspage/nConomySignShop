@@ -10,6 +10,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.inventory.ItemStack;
 
+import com.niccholaspage.nConomy.nConomy;
+
 public class playerListener extends PlayerListener {
 	public static nConomySignShop plugin;
 	public playerListener(nConomySignShop instance){
@@ -33,12 +35,12 @@ public class playerListener extends PlayerListener {
 			}
 			Integer amount = Integer.parseInt(sign.getLine(2));
 			Integer pay = Integer.parseInt(sign.getLine(3));
-			if (plugin.econHandler.canAddorDelete(pay) == false) return;
+			if (nConomy.getBank().canAddorDelete(pay) == false) return;
 			if (type == null) return;
 			if (amount == 0) return;
 			String typeName = type.name().toLowerCase().replace("_", " ");
-			if (plugin.econHandler.getMoney(player) < pay){
-				player.sendMessage(ChatColor.RED + "You don't have enough " + plugin.econHandler.currencyName + " to buy the " + typeName + " from this sign.");
+			if (nConomy.getBank().getMoney(player) < pay){
+				player.sendMessage(ChatColor.RED + "You don't have enough " + nConomy.getBank().currencyName + " to buy the " + typeName + " from this sign.");
 				return;
 			}
 			ItemStack item = new ItemStack(0);
@@ -46,8 +48,8 @@ public class playerListener extends PlayerListener {
 			item.setAmount(amount);
 			player.getInventory().addItem(item);
 			player.updateInventory();
-			plugin.econHandler.removeMoney(player, pay);
-			player.sendMessage(ChatColor.BLUE + "You just bought " + amount + " " + typeName + " for " + pay + " " + plugin.econHandler.currencyName + ".");
+			nConomy.getBank().removeMoney(player, pay);
+			player.sendMessage(ChatColor.BLUE + "You just bought " + amount + " " + typeName + " for " + pay + " " + nConomy.getBank().currencyName + ".");
 		}
 	}
 }

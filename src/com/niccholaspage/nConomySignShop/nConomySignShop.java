@@ -5,16 +5,11 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-
-import com.niccholaspage.nConomy.Bank;
-import com.niccholaspage.nConomy.nConomy;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
 public class nConomySignShop extends JavaPlugin {
-	public Bank econHandler;
 	public PermissionHandler Permissions;
-	//Links the BasicBlockListener
     private final blockListener blockListener = new blockListener(this);
     private final playerListener playerListener = new playerListener(this);
     @Override
@@ -70,12 +65,10 @@ public class nConomySignShop extends JavaPlugin {
     }
     private void setupnConomy(){
         Plugin test = this.getServer().getPluginManager().getPlugin("nConomy");
-            if (test != null) {
-                this.econHandler = nConomy.getBank();
-            } else {
-            	System.out.println("nConomy not detected, disabling nConomySignShop.");
-            	getPluginLoader().disablePlugin(this);
-            }
+        if (test == null){
+        	System.out.println("nConomy not detected, disabling nConomySignShop.");
+        	getPluginLoader().disablePlugin(this);
+        }
     }
     private void setupPermissions() {
         Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
